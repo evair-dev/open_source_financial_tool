@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,8 +84,12 @@ WSGI_APPLICATION = 'financial_tool.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env.db('DATABASE_URL'),
+        'USER': env.db('DATABASE_URL'),
+        'PASSWORD': env.db('DATABASE_URL'),
+        'HOST': env.db('DATABASE_URL'),
+        'PORT': env.db('DATABASE_URL'),
     }
 }
 
